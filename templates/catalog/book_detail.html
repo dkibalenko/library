@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Title: {{ book.title }}<a style="float: right" href="{% url 'catalog:books-update' pk=book.id %}">Edit</a></h1>
+  <p><strong>Price: </strong>{{ book.price }}</p>
+  <p><strong>Format: </strong>{{ book.format }}</p>  
+  <div class="ml-3">
+    <h3>Authors:</h3>
+    {# as we have book-author with many-to-many, we get manager back, so we should use .all (with no calling and passing in parameters) #}
+    {% for author in book.authors.all %}
+      <hr>
+      <p class="text-muted">{{ author.id }}</p>
+      <p>{{ author.first_name }} {{ author.last_name }}
+      {% if author.psuedonym %}
+        {{ author.psuedonym }}
+      {% endif %}
+      </p>
+    {% empty %}  
+      <p>No authors found</p>
+    {% endfor %}
+  </div>
+{% endblock %}

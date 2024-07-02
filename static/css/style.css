@@ -1,0 +1,10 @@
+/* create global config for styles of the site */
+body {
+    margin-top: 20px;
+    /*background: green;*/
+}
+
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}

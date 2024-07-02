@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+	<h1>Login</h1>
+  {% if form.errors %}
+  	<p style="color:red">Invalid Credentials</p>
+  {% endif %}
+{#  since we implement front and back end, we send form to our 'login_view' func, that processes requests. data will be sent to this func#}
+{#  also, method should be picked, default is "get" that sends data as a query params, username and password are displayed in url, avoid it, use "post", then data will be sent in request BODY#}
+  <form action="{% url 'login' %}" method="post">
+{#  csrf token must be used to protect our site from attacks. it says our backend that request is coming from our website#}
+    {% csrf_token %}
+{#    input data is sent to the request body, with key "username"#}
+    {{ form|crispy }}
+    <input type="submit" value="Submit">
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+{% endblock %}
